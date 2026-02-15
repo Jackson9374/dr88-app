@@ -6,6 +6,8 @@ import {
     Calculator,
     Bell,
     ChevronRight,
+    ChevronLeft,
+    PanelLeftClose,
     X
 } from 'lucide-react';
 import { clsx } from 'clsx';
@@ -23,7 +25,7 @@ const menuItems = [
     { id: 'notice', name: '공지사항', path: '/notice', icon: Bell },
 ];
 
-export default function Sidebar({ isOpen, onClose }) {
+export default function Sidebar({ isOpen, isCollapsed, onClose }) {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -45,16 +47,36 @@ export default function Sidebar({ isOpen, onClose }) {
 
             {/* Sidebar Shell */}
             <div className={cn(
-                "w-64 h-screen bg-doctor-blue text-white flex flex-col fixed left-0 top-0 shadow-xl z-50 transition-transform duration-300 lg:translate-x-0",
-                isOpen ? "translate-x-0" : "-translate-x-full"
+                "h-screen bg-doctor-blue text-white flex flex-col fixed left-0 top-0 shadow-xl z-50 transition-all duration-300 lg:translate-x-0",
+                isOpen ? "translate-x-0" : "-translate-x-full",
+                isCollapsed ? "lg:w-20" : "lg:w-64"
             )}>
-                <div className="p-6 border-b border-blue-800 flex justify-between items-center">
-                    <div>
+                <div className={cn(
+                    "p-6 border-b border-blue-800 flex justify-between items-center overflow-hidden transition-all duration-300",
+                    isCollapsed && "lg:px-4 lg:py-8 flex-col gap-4"
+                )}>
+                    <div className={cn("transition-all duration-300 flex flex-col", isCollapsed && "lg:opacity-0 lg:scale-0 lg:h-0")}>
                         <h1 className="text-xl font-bold tracking-tight">닥터88+</h1>
                         <p className="text-xs text-blue-300 mt-1 uppercase font-semibold">Doctor 88+ System</p>
                     </div>
-                    <button onClick={onClose} className="lg:hidden p-1 hover:bg-white/10 rounded">
-                        <X size={20} />
+
+                    {!isCollapsed && (
+                        <button
+                            onClick={() => window.dispatchEvent(new CustomEvent('toggle-sidebar'))}
+                            className="hidden lg:flex p-1.5 hover:bg-white/10 rounded-lg text-blue-200 hover:text-white transition-colors"
+                            title="메뉴 접기"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                    )}
+
+                    {isCollapsed && (
+                        <div className="hidden lg:flex flex-col items-center animate-in zoom-in duration-300">
+                            <h1 className="text-2xl font-black text-white italic tracking-tighter">D+</h1>
+                        </div>
+                    )}
+                    <button onClick={onClose} className="lg:hidden p-1 hover:bg-white/10 rounded font-bold">
+                        <X size={24} />
                     </button>
                 </div>
                 <nav className="flex-1 mt-6 px-3">
@@ -71,16 +93,24 @@ export default function Sidebar({ isOpen, onClose }) {
                                         : "hover:bg-blue-800 text-blue-100"
                                 )}
                             >
-                                <div className="flex items-center gap-3">
-                                    <item.icon size={20} className={cn(isActive ? "text-doctor-blue" : "text-blue-300 group-hover:text-white")} />
-                                    <span className="text-sm">{item.name}</span>
+                                <div className={cn("flex items-center gap-3 transition-all", isCollapsed && "lg:justify-center lg:gap-0")}>
+                                    <item.icon size={22} className={cn(isActive ? "text-doctor-blue" : "text-blue-300 group-hover:text-white")} />
+                                    <span className={cn(
+                                        "text-sm whitespace-nowrap transition-all duration-300",
+                                        isCollapsed && "lg:w-0 lg:opacity-0 lg:overflow-hidden"
+                                    )}>
+                                        {item.name}
+                                    </span>
                                 </div>
-                                {isActive && <ChevronRight size={16} />}
+                                {!isCollapsed && isActive && <ChevronRight size={16} />}
                             </button>
                         );
                     })}
                 </nav>
-                <div className="p-6 border-t border-blue-800 text-[10px] text-blue-400 font-inter">
+                <div className={cn(
+                    "p-6 border-t border-blue-800 text-[10px] text-blue-400 font-inter transition-all duration-300",
+                    isCollapsed && "lg:p-4 lg:opacity-0 lg:h-0 overflow-hidden"
+                )}>
                     &copy; 2026 닥터88+. <br /> All rights reserved.
                 </div>
             </div>

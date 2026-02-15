@@ -1,13 +1,13 @@
 export const AGENTS = [
-    { id: 'A1', name: '김철수', rank: '지사장', level: 1, status: '정상', sales: 12, teamSales: 156 },
-    { id: 'A2', name: '이영희', rank: '점장', uplineId: 'A1', level: 2, status: '정상', sales: 8, teamSales: 42 },
-    { id: 'A3', name: '박민수', rank: '점장', uplineId: 'A2', level: 2, isPromoted: true, status: '정상', sales: 15, teamSales: 15 },
-    { id: 'A4', name: '정지웅', rank: '점장', uplineId: 'A1', level: 2, status: '정상', sales: 5, teamSales: 38 },
-    { id: 'A5', name: '최유진', rank: '프리랜서', uplineId: 'A4', level: 3, status: '정상', sales: 10, teamSales: 10 },
-    { id: 'A6', name: '강현우', rank: '프리랜서', uplineId: 'A4', level: 3, status: '정상', sales: 7, teamSales: 7 },
-    { id: 'A7', name: '지사장A', rank: '지사장', uplineId: 'A1', level: 1, isPromoted: true, status: '정상', sales: 22, teamSales: 45 },
-    { id: 'A8', name: '점장B', rank: '점장', uplineId: 'A7', level: 2, status: '정상', sales: 12, teamSales: 20 },
-    { id: 'A9', name: '프리C', rank: '프리랜서', uplineId: 'A8', level: 3, status: '정상', sales: 8, teamSales: 8 },
+    { id: 'A1', name: '김철수', rank: '지사장', level: 1, status: '정상', sales: 12, teamSales: 156, regDate: '2023-01-10' },
+    { id: 'A2', name: '이영희', rank: '점장', uplineId: 'A1', level: 2, status: '정상', sales: 8, teamSales: 42, regDate: '2023-03-15' },
+    { id: 'A3', name: '박민수', rank: '점장', uplineId: 'A2', level: 2, isPromoted: true, status: '정상', sales: 15, teamSales: 15, regDate: '2023-05-20' },
+    { id: 'A4', name: '정지웅', rank: '점장', uplineId: 'A1', level: 2, status: '정상', sales: 5, teamSales: 38, regDate: '2023-06-12' },
+    { id: 'A5', name: '최유진', rank: '프리랜서', uplineId: 'A4', level: 3, status: '정상', sales: 10, teamSales: 10, regDate: '2023-08-01' },
+    { id: 'A6', name: '강현우', rank: '프리랜서', uplineId: 'A4', level: 3, status: '정상', sales: 7, teamSales: 7, regDate: '2023-09-11' },
+    { id: 'A7', name: '지사장A', rank: '지사장', uplineId: 'A1', level: 1, isPromoted: true, status: '정상', sales: 22, teamSales: 45, regDate: '2023-02-14' },
+    { id: 'A8', name: '점장B', rank: '점장', uplineId: 'A7', level: 2, status: '정상', sales: 12, teamSales: 20, regDate: '2023-04-25' },
+    { id: 'A9', name: '프리C', rank: '프리랜서', uplineId: 'A8', level: 3, status: '정기', sales: 8, teamSales: 8, regDate: '2023-11-03' },
 ];
 
 export const SALES_DATA = [

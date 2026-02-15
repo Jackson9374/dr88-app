@@ -85,6 +85,7 @@ const PaymentDetailModal = ({ isOpen, onClose, data }) => {
 
 export default function SalesManagement() {
     const [isRegModalOpen, setIsRegModalOpen] = useState(false);
+    const [isFilterExpanded, setIsFilterExpanded] = useState(false); // Mobile filter toggle state
     const [paymentDetail, setPaymentDetail] = useState(null);
     const [currentAgent, setCurrentAgent] = useState(AGENTS[0]); // 기본: 김철수(지사장)
     const [filters, setFilters] = useState({
@@ -126,8 +127,33 @@ export default function SalesManagement() {
     return (
         <div className="space-y-4">
             {/* Optimized Filter & Action Integrated Section - Precise 12-Column Grid */}
+            {/* Optimized Filter & Action Integrated Section - Precise 12-Column Grid */}
             <div className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-                <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-12 gap-x-1.5 gap-y-3 items-end">
+                {/* Mobile Filter Toggle Button */}
+                <div className="lg:hidden flex justify-between items-center mb-2 px-1">
+                    <button
+                        onClick={() => setIsFilterExpanded(!isFilterExpanded)}
+                        className="flex items-center gap-2 text-xs font-black text-doctor-blue bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 transition-all active:scale-95"
+                    >
+                        <Filter size={14} className={isFilterExpanded ? 'rotate-180 transition-transform' : ''} />
+                        {isFilterExpanded ? '상세 필터 접기' : '상세 필터 열기'}
+                    </button>
+                    {!isFilterExpanded && (
+                        <div className="flex gap-1">
+                            <button className="p-1.5 bg-gray-800 text-white rounded-lg hover:bg-black transition-all">
+                                <Search size={14} />
+                            </button>
+                            <button
+                                onClick={() => setFilters({ agent: '', customer: '', region: '', startDate: '', endDate: '', payment: '', status: '' })}
+                                className="p-1.5 bg-gray-100 text-gray-400 rounded-lg border border-gray-200"
+                            >
+                                <Repeat size={14} />
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                <div className={`${isFilterExpanded ? 'grid' : 'hidden lg:grid'} grid-cols-2 md:grid-cols-5 lg:grid-cols-12 gap-x-1.5 gap-y-3 items-end transition-all duration-300`}>
                     {/* 영업자 검색 (1 col) */}
                     <div className="flex flex-col gap-1">
                         <label className="text-[9px] font-black text-gray-400 uppercase tracking-tighter ml-0.5">영업자</label>
@@ -237,7 +263,7 @@ export default function SalesManagement() {
                     <div className="hidden lg:block lg:col-span-1"></div>
 
                     {/* Excel Download Button (1 col) */}
-                    <div>
+                    <div className="lg:block">
                         <button className="w-full flex items-center justify-center gap-1 h-[28px] text-doctor-blue bg-blue-50 hover:bg-blue-100 rounded-lg font-bold transition-all text-[10px] border border-blue-100">
                             <Download size={12} />
                             엑셀출력
@@ -245,7 +271,7 @@ export default function SalesManagement() {
                     </div>
 
                     {/* Performance Registration Button (1 col) */}
-                    <div>
+                    <div className="lg:block">
                         <button
                             onClick={() => setIsRegModalOpen(true)}
                             className="w-full flex items-center justify-center gap-1 h-[28px] bg-doctor-blue text-white rounded-lg font-black shadow-md shadow-blue-100 hover:bg-blue-800 transition-all text-[10px] whitespace-nowrap"
@@ -257,88 +283,81 @@ export default function SalesManagement() {
                 </div>
             </div>
 
-            {/* Quick Summary Row */}
-            <div className="flex justify-start items-center px-4 py-1">
-                <span className="text-[10px] font-bold text-gray-400 tracking-tighter">
-                    조회 결과: <span className="text-doctor-blue font-black">{filteredSales.length}</span>건
+            {/* Quick Summary Row - Seniors Friendly (Larger Font) */}
+            <div className="flex justify-start items-center px-4 py-3 bg-white border-y border-gray-50">
+                <span className="text-base font-black text-gray-500">
+                    현재 조회된 건수: <span className="text-doctor-blue text-xl">{filteredSales.length}</span>건
                 </span>
             </div>
 
-            {/* Quick Summary Row */}
-            <div className="flex justify-start items-center px-4 py-1">
-                <span className="text-[10px] font-bold text-gray-400 tracking-tighter">
-                    조회 결과: <span className="text-doctor-blue font-black">{filteredSales.length}</span>건
-                </span>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-100 border border-gray-100 overflow-hidden">
+            <div className="bg-white rounded-b-3xl shadow-xl shadow-gray-100 border border-gray-100 overflow-hidden">
                 <div className="overflow-x-auto scrollbar-hide">
                     <table className="w-full text-left table-fixed font-inter min-w-[1200px]">
                         <thead>
                             <tr className="bg-doctor-blue text-white">
-                                <th className="w-12 px-2 py-5 text-[10px] font-black uppercase text-center">NO</th>
-                                <th className="w-24 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">영업자</th>
-                                <th className="w-32 px-4 py-5 text-[10px] font-black uppercase tracking-widest">구매자</th>
-                                <th className="w-24 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">지역</th>
-                                <th className="px-4 py-5 text-[10px] font-black uppercase tracking-widest leading-tight">주소</th>
-                                <th className="w-28 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">등록일자</th>
-                                <th className="w-24 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">결제방식</th>
-                                <th className="w-24 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">첨부서류</th>
-                                <th className="w-24 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">배송현황</th>
-                                <th className="w-32 px-4 py-5 text-[10px] font-black uppercase tracking-widest text-center">관리</th>
+                                <th className="w-16 px-2 py-6 text-sm font-black uppercase text-center border-r border-white/10">순번</th>
+                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">판매자</th>
+                                <th className="w-48 px-4 py-6 text-sm font-black uppercase tracking-wider border-r border-white/10">구매 고객</th>
+                                <th className="w-28 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">지역</th>
+                                <th className="px-4 py-6 text-sm font-black uppercase tracking-wider leading-tight border-r border-white/10">배송 주소</th>
+                                <th className="w-36 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">등록일</th>
+                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">결제방식</th>
+                                <th className="w-28 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">서류</th>
+                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">배송상태</th>
+                                <th className="w-40 px-4 py-6 text-sm font-black uppercase tracking-wider text-center">관리</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {filteredSales.length > 0 ? (
                                 filteredSales.map((sale, index) => (
-                                    <tr key={sale.id} className="hover:bg-blue-50/20 transition-colors group">
-                                        <td className="px-2 py-6 text-center text-[10px] font-bold text-gray-400">{filteredSales.length - index}</td>
-                                        <td className="px-4 py-6 text-center">
-                                            <span className="text-[10px] font-black text-gray-700 bg-gray-100 px-2 py-1 rounded uppercase tracking-tighter">{sale.agent}</span>
+                                    <tr key={sale.id} className="hover:bg-blue-50/40 transition-colors group">
+                                        <td className="px-2 py-8 text-center text-xs font-bold text-gray-400">{filteredSales.length - index}</td>
+                                        <td className="px-4 py-8 text-center">
+                                            <span className="text-sm font-black text-gray-900 bg-gray-100 px-3 py-1.5 rounded uppercase">{sale.agent}</span>
                                         </td>
-                                        <td className="px-4 py-6">
-                                            <p className="text-xs font-black text-gray-900 leading-tight">{maskName(sale.customer)}</p>
-                                            <p className="text-[10px] font-bold text-blue-500 tracking-tighter mt-0.5">{sale.phone}</p>
+                                        <td className="px-4 py-8">
+                                            <p className="text-base font-black text-gray-900 leading-tight">{maskName(sale.customer)}</p>
+                                            <p className="text-sm font-bold text-blue-600 font-mono mt-1">{sale.phone}</p>
                                         </td>
-                                        <td className="px-4 py-6 text-center">
-                                            <span className="text-[11px] font-bold text-gray-600">{sale.region}</span>
+                                        <td className="px-4 py-8 text-center">
+                                            <span className="text-sm font-bold text-gray-800">{sale.region}</span>
                                         </td>
-                                        <td className="px-4 py-6 text-[11px] text-gray-500 truncate" title={sale.address}>{sale.address}</td>
-                                        <td className="px-4 py-6 text-center">
-                                            <span className="text-[11px] font-medium text-gray-500 font-inter">{sale.regDate}</span>
+                                        <td className="px-4 py-8 text-sm text-gray-600 truncate" title={sale.address}>{sale.address}</td>
+                                        <td className="px-4 py-8 text-center">
+                                            <span className="text-sm font-bold text-gray-600 font-mono">{sale.regDate}</span>
                                         </td>
-                                        <td className="px-4 py-6 text-center">
+                                        <td className="px-4 py-8 text-center">
                                             <button
                                                 onClick={() => setPaymentDetail(sale.paymentDetails)}
-                                                className={`px-2 py-1 rounded-md text-[9px] font-black text-white hover:scale-105 transition-all ${sale.payment === '렌탈' ? 'bg-purple-600' : sale.payment === '카드결제' ? 'bg-indigo-600' : 'bg-emerald-600'
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-black text-white shadow-sm hover:scale-105 transition-all ${sale.payment === '렌탈' ? 'bg-purple-600' : sale.payment === '카드결제' ? 'bg-indigo-600' : 'bg-emerald-600'
                                                     }`}
                                             >
                                                 {sale.payment}
                                             </button>
                                         </td>
-                                        <td className="px-4 py-6 text-center">
+                                        <td className="px-4 py-8 text-center">
                                             {sale.attachments ? (
-                                                <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg border border-blue-100 hover:bg-blue-100 transition-all cursor-pointer">
-                                                    <FileText size={14} className="font-bold" />
-                                                    <span className="text-[10px] font-black">{sale.attachments.length}</span>
+                                                <div className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-xl border border-blue-100 font-black">
+                                                    <FileText size={18} />
+                                                    <span className="text-sm">{sale.attachments.length}개</span>
                                                 </div>
                                             ) : (
-                                                <span className="text-gray-300">-</span>
+                                                <span className="text-gray-300 font-black">-</span>
                                             )}
                                         </td>
-                                        <td className="px-4 py-6 text-center">
-                                            <div className="flex flex-col items-center gap-0.5">
-                                                {sale.status === '도착완료' && <CheckCircle2 size={16} className="text-green-500" />}
-                                                {sale.status === '배송중' && <Truck size={16} className="text-blue-500" />}
-                                                {sale.status === '준비중' && <Clock size={16} className="text-gray-400" />}
-                                                <span className="text-[9px] font-black text-gray-500">{sale.status}</span>
+                                        <td className="px-4 py-8 text-center">
+                                            <div className="flex flex-col items-center gap-1">
+                                                {sale.status === '도착완료' && <CheckCircle2 size={20} className="text-green-600" />}
+                                                {sale.status === '배송중' && <Truck size={20} className="text-blue-600" />}
+                                                {sale.status === '준비중' && <Clock size={20} className="text-gray-400" />}
+                                                <span className="text-[11px] font-black text-gray-600">{sale.status}</span>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-6 text-center">
-                                            <div className="flex justify-center gap-2">
-                                                <button title="수정" className="p-1.5 rounded-lg bg-gray-50 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all"><Edit size={14} /></button>
-                                                <button title="복사" className="p-1.5 rounded-lg bg-gray-50 text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-all"><Copy size={14} /></button>
-                                                <button title="삭제" className="p-1.5 rounded-lg bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"><Trash2 size={14} /></button>
+                                        <td className="px-4 py-8 text-center">
+                                            <div className="flex justify-center gap-2.5">
+                                                <button title="수정" className="p-2.5 rounded-xl bg-gray-50 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 border border-gray-100 transition-all shadow-sm"><Edit size={18} /></button>
+                                                <button title="복사" className="p-2.5 rounded-xl bg-gray-50 text-gray-500 hover:text-blue-600 hover:bg-blue-50 border border-gray-100 transition-all shadow-sm"><Copy size={18} /></button>
+                                                <button title="삭제" className="p-2.5 rounded-xl bg-gray-50 text-gray-500 hover:text-red-500 hover:bg-red-50 border border-gray-100 transition-all shadow-sm"><Trash2 size={18} /></button>
                                             </div>
                                         </td>
                                     </tr>

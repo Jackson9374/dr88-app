@@ -18,14 +18,19 @@ import {
 import { MONTHLY_TREND } from '../../constants/dummyData';
 
 const StatCard = ({ title, value, subValue, icon: Icon, color }) => (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start justify-between transition-transform hover:scale-[1.02]">
-        <div>
-            <p className="text-sm font-medium text-gray-500 mb-1">{title}</p>
-            <h3 className="text-2xl font-bold text-gray-800">{value}</h3>
-            {subValue && <p className="text-xs text-green-600 mt-1 font-semibold">{subValue}</p>}
+    <div className="bg-white p-4 lg:p-8 rounded-3xl shadow-md border border-gray-100 flex items-start justify-between transition-transform hover:scale-[1.02]">
+        <div className="overflow-hidden">
+            <p className="text-[11px] lg:text-base font-bold text-gray-500 mb-1 lg:mb-2 truncate">{title}</p>
+            <h3 className="text-xl lg:text-3xl font-black text-gray-900 tracking-tight leading-tight">{value}</h3>
+            {subValue && (
+                <div className="flex items-center gap-1.5 mt-2 lg:mt-2.5">
+                    <span className="text-[10px] lg:text-sm text-green-600 font-black bg-green-50 px-2 py-0.5 rounded-full whitespace-nowrap">{subValue}</span>
+                </div>
+            )}
         </div>
-        <div className={`p-3 rounded-xl ${color} text-white`}>
-            <Icon size={24} />
+        <div className={`p-2.5 lg:p-4 rounded-xl lg:rounded-2xl ${color} text-white shrink-0 ml-2 lg:ml-3 shadow-lg`}>
+            <Icon size={20} className="lg:hidden" />
+            <Icon size={32} className="hidden lg:block" />
         </div>
     </div>
 );
@@ -33,8 +38,8 @@ const StatCard = ({ title, value, subValue, icon: Icon, color }) => (
 export default function Dashboard() {
     return (
         <div className="space-y-8">
-            {/* 요약 카드 영역 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            {/* 요약 카드 영역 - Seniors Friendly Optimization: Mobile 2 columns */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-8">
                 <StatCard
                     title="당월 총 판매량"
                     value="184대"
