@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import SalesManagement from './pages/Sales/SalesManagement';
@@ -8,19 +8,33 @@ import Notice from './pages/Notice/Notice';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 
-function App() {
-  // 실제 서비스에서는 전역 상태 관리(Context/Redux)를 사용하겠지만, 
-  // 여기서는 로컬 스토리지 기반의 간단한 예시로 구현합니다.
+// 인증 보호 컴포넌트
+const ProtectedRoute = ({ children }) => {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
+// 로그인 상태일 때 접근 제한
+const PublicRoute = ({ children }) => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  if (isLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
+function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<Signup />} />
 
         {/* 인증이 필요한 라우트 */}
-        <Route path="/" element={isLoggedIn ? <Layout /> : <Login />}>
+        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="sales" element={<SalesManagement />} />
           <Route path="agent" element={<AgentManagement />} />
