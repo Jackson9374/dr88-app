@@ -61,7 +61,7 @@ export default function Login() {
                                         onChange={(e) => setUserId(e.target.value)}
                                         placeholder="이메일 또는 아이디"
                                         required
-                                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-doctor-blue focus:bg-white outline-none transition-all text-sm font-bold placeholder:text-gray-300 placeholder:italic"
+                                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-doctor-blue focus:bg-white outline-none transition-all text-sm font-bold text-gray-900 placeholder:text-gray-300 placeholder:italic"
                                     />
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ export default function Login() {
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="••••••••"
                                         required
-                                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-doctor-blue focus:bg-white outline-none transition-all text-sm font-bold placeholder:text-gray-300"
+                                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-doctor-blue focus:bg-white outline-none transition-all text-sm font-bold text-gray-900 placeholder:text-gray-300"
                                     />
                                 </div>
                             </div>
