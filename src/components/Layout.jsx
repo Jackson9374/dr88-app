@@ -49,8 +49,12 @@ export default function Layout() {
                             </button>
                             <div className="flex items-center gap-3 border-l pl-6 border-gray-100">
                                 <div className="text-right">
-                                    <p className="text-xs font-black text-gray-700">관리자님</p>
-                                    <p className="text-[10px] text-blue-600 font-bold uppercase tracking-wider">본사 총괄</p>
+                                    <p className="text-xs font-black text-gray-700">
+                                        {JSON.parse(localStorage.getItem('user'))?.name || '관리자'}님
+                                    </p>
+                                    <p className="text-[10px] text-blue-600 font-bold uppercase tracking-wider">
+                                        {JSON.parse(localStorage.getItem('user'))?.rank || '본사 총괄'}
+                                    </p>
                                 </div>
                                 <div className="w-9 h-9 rounded-xl bg-doctor-blue flex items-center justify-center text-white font-black shadow-md shadow-blue-100">
                                     <User size={18} />

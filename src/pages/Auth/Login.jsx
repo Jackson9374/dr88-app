@@ -11,12 +11,19 @@ export default function Login() {
     const handleLogin = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        // 실제로는 여기서 AGENTS 데이터를 확인하거나 API 호출
+
         setTimeout(() => {
             setIsLoading(false);
-            // 임시로 성공 처리
+
+            let user;
+            if (userId === 'admin' && password === 'admin1234') {
+                user = { name: '관리자', rank: '본사 총괄', id: 'SUPER', role: 'ADMIN' };
+            } else {
+                user = { name: '김철수', rank: '지사장', id: 'A1', role: 'BRANCH' };
+            }
+
             localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('user', JSON.stringify({ name: '김철수', rank: '지사장', id: 'A1' }));
+            localStorage.setItem('user', JSON.stringify(user));
             navigate('/');
         }, 800);
     };
