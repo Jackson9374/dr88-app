@@ -292,19 +292,19 @@ export default function SalesManagement() {
 
             <div className="bg-white rounded-b-3xl shadow-xl shadow-gray-100 border border-gray-100 overflow-hidden">
                 <div className="overflow-x-auto scrollbar-hide">
-                    <table className="w-full text-left table-fixed font-inter min-w-[1200px]">
+                    <table className="w-full text-left table-fixed font-inter min-w-[1600px]">
                         <thead>
                             <tr className="bg-doctor-blue text-white">
-                                <th className="w-16 px-2 py-6 text-sm font-black uppercase text-center border-r border-white/10">순번</th>
-                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">판매자</th>
-                                <th className="w-48 px-4 py-6 text-sm font-black uppercase tracking-wider border-r border-white/10">구매 고객</th>
-                                <th className="w-28 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">지역</th>
-                                <th className="px-4 py-6 text-sm font-black uppercase tracking-wider leading-tight border-r border-white/10">배송 주소</th>
-                                <th className="w-36 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">등록일</th>
-                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">결제방식</th>
-                                <th className="w-28 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">서류</th>
-                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">배송상태</th>
-                                <th className="w-40 px-4 py-6 text-sm font-black uppercase tracking-wider text-center">관리</th>
+                                <th className="w-16 px-2 py-6 text-sm font-black uppercase text-center border-r border-white/10 whitespace-nowrap">순번</th>
+                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10 whitespace-nowrap">판매자</th>
+                                <th className="w-48 px-4 py-6 text-sm font-black uppercase tracking-wider border-r border-white/10 whitespace-nowrap">구매 고객</th>
+                                <th className="w-28 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10 whitespace-nowrap">지역</th>
+                                <th className="w-[600px] min-w-[600px] px-4 py-6 text-sm font-black uppercase tracking-wider leading-tight border-r border-white/10 whitespace-nowrap">배송 주소</th>
+                                <th className="w-36 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10 whitespace-nowrap">등록일</th>
+                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10 whitespace-nowrap">결제방식</th>
+                                <th className="w-28 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10 whitespace-nowrap">서류</th>
+                                <th className="w-32 px-4 py-6 text-sm font-black uppercase tracking-wider text-center border-r border-white/10 whitespace-nowrap">배송상태</th>
+                                <th className="w-40 px-4 py-6 text-sm font-black uppercase tracking-wider text-center whitespace-nowrap">관리</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -322,7 +322,7 @@ export default function SalesManagement() {
                                         <td className="px-4 py-8 text-center">
                                             <span className="text-sm font-bold text-gray-800">{sale.region}</span>
                                         </td>
-                                        <td className="px-4 py-8 text-sm text-gray-600 truncate" title={sale.address}>{sale.address}</td>
+                                        <td className="px-4 py-8 text-sm text-gray-600 font-medium whitespace-normal break-all" title={sale.address}>{sale.address}</td>
                                         <td className="px-4 py-8 text-center">
                                             <span className="text-sm font-bold text-gray-600 font-mono">{sale.regDate}</span>
                                         </td>
@@ -337,9 +337,9 @@ export default function SalesManagement() {
                                         </td>
                                         <td className="px-4 py-8 text-center">
                                             {sale.attachments ? (
-                                                <div className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-xl border border-blue-100 font-black">
-                                                    <FileText size={18} />
-                                                    <span className="text-sm">{sale.attachments.length}개</span>
+                                                <div className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-blue-50 text-blue-700 rounded-xl border border-blue-100 font-black whitespace-nowrap min-w-[70px]">
+                                                    <FileText size={16} />
+                                                    <span className="text-xs">{sale.attachments.length}개</span>
                                                 </div>
                                             ) : (
                                                 <span className="text-gray-300 font-black">-</span>

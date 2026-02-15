@@ -76,7 +76,7 @@ export default function Settlement() {
     ];
 
     return (
-        <div className="space-y-8 font-inter">
+        <div className="space-y-4 font-inter">
             <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-6">
                 <div className="flex gap-4 flex-1 lg:max-w-md">
                     <div className="flex-1 relative">
@@ -108,7 +108,7 @@ export default function Settlement() {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="hidden lg:flex gap-3">
                     <button className="flex-1 lg:flex-none flex items-center justify-center gap-2.5 px-8 py-4 bg-blue-50 text-doctor-blue border border-blue-100 rounded-2xl font-black hover:bg-blue-100 transition-all text-base shadow-sm">
                         <Printer size={20} />
                         출력
@@ -120,30 +120,33 @@ export default function Settlement() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-doctor-blue p-8 rounded-3xl text-white shadow-xl shadow-blue-100">
-                    <p className="text-blue-200 font-bold mb-2 flex items-center gap-2"><Calculator size={18} /> 정산 총액</p>
-                    <h3 className="text-3xl lg:text-4xl font-black tracking-tight">4.8<span className="text-xl ml-1 font-bold">억원</span></h3>
-                    <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 rounded-full text-sm font-bold">
-                        <ArrowUpRight size={14} className="text-emerald-400" />
-                        <span className="text-emerald-400">+5.2%</span> 전월 대비
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-doctor-blue p-4 lg:p-5 rounded-3xl text-white shadow-lg shadow-blue-50 flex flex-col lg:block justify-center">
+                    <p className="text-blue-200 font-bold mb-1 flex items-center gap-2 text-xs uppercase tracking-wider"><Calculator size={14} /> 정산 총액</p>
+                    <div className="flex items-center gap-3">
+                        <h3 className="text-2xl lg:text-3xl font-black tracking-tight italic">4.8<span className="text-lg ml-0.5 font-bold">억원</span></h3>
+                        <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-white/10 rounded-full text-[10px] font-bold">
+                            <ArrowUpRight size={12} className="text-emerald-400" />
+                            <span className="text-emerald-400">+5.2%</span>
+                        </div>
                     </div>
                 </div>
-                <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-50">
-                    <p className="text-gray-400 font-bold mb-2">당월 실적 총액</p>
-                    <h3 className="text-3xl lg:text-4xl font-black text-doctor-blue tracking-tight">32.4<span className="text-xl ml-1 font-bold">억원</span></h3>
-                    <p className="text-xs text-gray-400 mt-4 leading-none font-bold italic">* 2024.02 기준</p>
+                <div className="bg-white p-5 rounded-3xl border border-gray-100 shadow-lg shadow-gray-50 flex flex-col justify-center">
+                    <p className="text-gray-400 font-black text-xs mb-1 uppercase tracking-wider">당월 실적 총액</p>
+                    <h3 className="text-2xl lg:text-3xl font-black text-doctor-blue tracking-tight">32.4<span className="text-lg ml-0.5 font-bold">억원</span></h3>
                 </div>
-                <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-50">
-                    <p className="text-gray-400 font-bold mb-2">정산 대기 건수</p>
-                    <h3 className="text-3xl lg:text-4xl font-black text-amber-500 tracking-tight">2<span className="text-xl ml-1 font-bold">건</span></h3>
-                    <div className="mt-4 flex items-center gap-1.5 text-red-500 font-black text-sm">
-                        <TrendingDown size={16} /> 신속 정산 필요
+                <div className="bg-white p-5 rounded-3xl border border-gray-100 shadow-lg shadow-gray-50 flex flex-col justify-center">
+                    <p className="text-gray-400 font-black text-xs mb-1 uppercase tracking-wider">정산 대기 건수</p>
+                    <div className="flex items-end justify-between">
+                        <h3 className="text-2xl lg:text-3xl font-black text-amber-500 tracking-tight">2<span className="text-lg ml-0.5 font-bold">건</span></h3>
+                        <div className="flex items-center gap-1 text-red-500 font-black text-[10px] bg-red-50 px-2 py-1 rounded-lg">
+                            <TrendingDown size={12} /> 신속처리
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="bg-white rounded-b-3xl shadow-2xl shadow-gray-100 border border-gray-100 overflow-hidden mt-8">
+            <div className="bg-white rounded-b-3xl shadow-2xl shadow-gray-100 border border-gray-100 overflow-hidden mt-4">
                 <div className="overflow-x-auto scrollbar-hide">
                     <table className="w-full text-left table-fixed min-w-[1000px]">
                         <thead>
@@ -152,7 +155,7 @@ export default function Settlement() {
                                 <th className="w-64 px-6 py-8 text-sm font-black uppercase tracking-wider border-r border-white/10 text-left">성함</th>
                                 <th className="w-32 px-4 py-8 text-sm font-black uppercase tracking-wider border-r border-white/10 text-center">직함</th>
                                 <th className="w-40 px-4 py-8 text-sm font-black uppercase tracking-wider border-r border-white/10 text-center">실적수</th>
-                                <th className="px-4 py-8 text-sm font-black uppercase tracking-wider border-r border-white/10 text-right">판매실적금액</th>
+                                <th className="w-64 px-4 py-8 text-sm font-black uppercase tracking-wider border-r border-white/10 text-right">판매실적금액</th>
                                 <th className="w-44 px-4 py-8 text-sm font-black uppercase tracking-wider text-right border-r border-white/10">확정 정산액</th>
                                 <th className="w-32 px-4 py-8 text-sm font-black uppercase tracking-wider text-center border-r border-white/10">상태</th>
                                 <th className="w-24 px-4 py-8 text-sm font-black uppercase tracking-wider text-center">명세서</th>
